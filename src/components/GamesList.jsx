@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./GameList.css";
 import { Link } from "react-router-dom";
 import { useGameContext } from "../context/GameContext";
+import { motion } from "framer-motion";
 
 const GamesList = ({ query, selectedCategory }) => {
     const { games, setSelectedGameData } = useGameContext();
@@ -41,32 +42,34 @@ const GamesList = ({ query, selectedCategory }) => {
                         style={{ textDecoration: "none" }}
                         onClick={() => handleSelectedGame(game)}
                     >
-                        <Card
-                            className="game-card"
-                            sx={{ height: "300px", maxHeight: "300px" }}
-                        >
-                            <CardMedia
-                                component="img"
-                                image={require(`../assets/${game.icon}`)}
-                                alt={game.name}
-                                sx={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "contain",
-                                }}
-                            />
-                            <div className="overlay">
-                                <CardContent>
-                                    <Typography
-                                        variant="h4"
-                                        textAlign="center"
-                                        component="div"
-                                    >
-                                        {game.name}
-                                    </Typography>
-                                </CardContent>
-                            </div>
-                        </Card>
+                        <motion.div layout>
+                            <Card
+                                className="game-card"
+                                sx={{ height: "300px", maxHeight: "300px" }}
+                            >
+                                <CardMedia
+                                    component="img"
+                                    image={require(`../assets/${game.icon}`)}
+                                    alt={game.name}
+                                    sx={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                <div className="overlay">
+                                    <CardContent>
+                                        <Typography
+                                            variant="h4"
+                                            textAlign="center"
+                                            component="div"
+                                        >
+                                            {game.name}
+                                        </Typography>
+                                    </CardContent>
+                                </div>
+                            </Card>
+                        </motion.div>
                     </Link>
                 </Grid>
             ))}
