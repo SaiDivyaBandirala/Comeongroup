@@ -1,19 +1,59 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { useGameContext } from "../context/GameContext";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography, IconButton } from "@mui/material";
+
+import { ArrowBack } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const GamePage = () => {
-    const { gameCode } = useParams();
-    const { games, selectedGame } = useGameContext();
+    const { selectedGame } = useGameContext();
 
-    useEffect(() => {
-        console.log("GamePage", games, selectedGame);
-    });
+    const handlePlayClick = () => {
+        window.comeon.game.launch(selectedGame.code);
+    };
+
     return (
         <Container>
-            <Grid container spacing={3} sx={{ marginTop: "2rem" }}>
-                <Grid item sx={{ padding: "0" }} xs={12} md={12}>
+            <Grid
+                container
+                spacing={3}
+                sx={{
+                    marginTop: "2rem",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                }}
+            >
+                <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    sx={{ textAlign: "left", marginLeft: "2rem" }}
+                >
+                    <Link
+                        to="/games"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <IconButton
+                            sx={{
+                                color: "primary",
+                                marginLeft: "-12px",
+                            }}
+                        >
+                            <ArrowBack />
+                            <Typography>Back</Typography>
+                        </IconButton>
+                    </Link>
+                </Grid>
+
+                <Grid
+                    item
+                    id="game-launch"
+                    sx={{ padding: "0" }}
+                    xs={12}
+                    md={12}
+                    alignItems="center"
+                >
                     <img
                         src={require(`../assets/${selectedGame.icon.replace(
                             "images/game-icon",
@@ -55,14 +95,14 @@ const GamePage = () => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                alignItems="center"
-                                textAlign="center"
                                 sx={{ width: "200px", marginTop: "2rem" }}
+                                onClick={handlePlayClick}
                             >
                                 Play
                             </Button>
                         </Grid>
                         <Grid item xs={1} lg={1} md={1}></Grid>
+                        <Grid item xs={12} lg={12} md={12}></Grid>
                     </Grid>
                 </Grid>
             </Grid>
