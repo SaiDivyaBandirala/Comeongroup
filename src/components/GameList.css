@@ -1,0 +1,25 @@
+.game-card {
+    position: relative;
+    overflow: hidden;
+    
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(142, 181, 13, 0.925);
+    color: #373942;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  
+  .game-card:hover .overlay {
+    left: 0;
+    opacity: 1;
+}

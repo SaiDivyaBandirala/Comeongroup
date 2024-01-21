@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
 import { fetchCategories, fetchGames } from "../api/Api";
-import { Alert } from "@mui/material";
+import { Alert, Container } from "@mui/material";
+import GamesList from "../components/GamesList";
 const HomePage = ({ setLoggedIn }) => {
     const [games, setGames] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -31,11 +32,13 @@ const HomePage = ({ setLoggedIn }) => {
         navigate(RoutePaths.LOGIN);
     };
     return (
-        <div>
+        <>
             <Header></Header>
-
-            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-        </div>
+            <Container>
+                {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+                <GamesList games={games}></GamesList>
+            </Container>
+        </>
     );
 };
 HomePage.propTypes = {
