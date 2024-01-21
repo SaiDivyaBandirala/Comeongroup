@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Card, CardHeader, Container, TextField } from "@mui/material";
+import {
+    Alert,
+    Button,
+    Card,
+    CardHeader,
+    Container,
+    TextField,
+} from "@mui/material";
 import * as Yup from "yup";
 
 const LoginForm = () => {
@@ -25,12 +32,12 @@ const LoginForm = () => {
             .max(10, "Password shouldn't exceeed 10 characters")
             .required("Password is required"),
     });
-
     const [formValues, setFormValues] = useState(LoginFormValues);
     const [errors, setErrors] = useState({});
-
+    const [errorMessage, setErrorMessage] = useState(null);
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
         setFormValues({ ...formValues, [name]: value });
     };
 
@@ -50,9 +57,15 @@ const LoginForm = () => {
                 }),
             });
             if (!response.ok) {
-                console.log("Not ok", response);
+                const data = await response.json();
+                const errorMessage = data.error || "An error occurred.";
+                setErrorMessage(errorMessage);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 3000);
             } else {
                 const data = await response.json();
+                setFormValues(LoginFormValues);
             }
         } catch (validationErrors) {
             const newErrors = {};
@@ -73,7 +86,7 @@ const LoginForm = () => {
                 height: "100vh",
             }}
         >
-            <Card sx={{ minWidth: 300 }} elevation={0}>
+            <Card sx={{ height: "400px", width: "400px" }} elevation={0}>
                 <CardHeader title="Login" sx={{ textAlign: "center" }} />
                 <form>
                     <TextField
@@ -100,6 +113,9 @@ const LoginForm = () => {
                         error={Boolean(errors.password)}
                         helperText={errors.password}
                     />
+                    {errorMessage && (
+                        <Alert severity="error">{errorMessage}</Alert>
+                    )}
 
                     <Button
                         type="button"
