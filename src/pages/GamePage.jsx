@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGameContext } from "../context/GameContext";
-import { Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 
 const GamePage = () => {
     const { gameCode } = useParams();
@@ -29,13 +29,18 @@ const GamePage = () => {
                     xs={12}
                     md={12}
                 >
-                    <Grid container>
+                    <Grid container alignItems="center" justifyContent="center">
                         <Grid item xs={1} lg={1} md={1}></Grid>
-                        <Grid item xs={10} lg={10} md={10}>
+                        <Grid
+                            item
+                            xs={10}
+                            lg={10}
+                            md={10}
+                            sx={{ textAlign: "center" }}
+                        >
                             <Typography
                                 variant="h4"
                                 align="justify"
-                                alignItems="center"
                                 textAlign="center"
                                 color="secondary"
                                 fontWeight="500"
@@ -44,8 +49,18 @@ const GamePage = () => {
                             </Typography>
                             <br />
                             <Typography variant="subtitle1" align="justify">
-                                {selectedGame.description}{" "}
+                                {selectedGame.description}
                             </Typography>
+
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                alignItems="center"
+                                textAlign="center"
+                                sx={{ width: "200px", marginTop: "2rem" }}
+                            >
+                                Play
+                            </Button>
                         </Grid>
                         <Grid item xs={1} lg={1} md={1}></Grid>
                     </Grid>
