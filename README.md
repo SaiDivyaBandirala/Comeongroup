@@ -3,7 +3,7 @@
 ## Overview
 
 This repository contains a minimal casino website with react using MUI.
-
+## Taken UI Inspiration from quickspin website 
 ## Features
 
 1. **Login functionality:**
@@ -34,6 +34,15 @@ This repository contains a minimal casino website with react using MUI.
 5. **Extra Features:**
     - Implement Game Page on selection of the game
     - Add extra data to the json
+    - Validation of login form
+    - Enhanced UI
+    - Game Headers
+    - Individual game page
+    - Maintained Custom Theme
+    - Improved performance with context files
+    - Motion div for smooth transitions
+    - Header bar for clean design
+      
 
 ## Future Work
 1. **Registration functionality:**
