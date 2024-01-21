@@ -4,22 +4,43 @@ import {
     Toolbar,
     Typography,
     IconButton,
-    Button,
     Menu,
     MenuItem,
+    Avatar,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import logo from "../assets/images/Logo.png";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const { user, logout, setUserData } = useAuth();
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = async () => {
         setAnchorEl(null);
+        try {
+            const response = await fetch("http://localhost:3001/logout", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: user.name.split(" ")[0].toLowerCase(),
+                }),
+            });
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error("Failed to logout", data.error);
+            } else {
+                logout();
+                setUserData(null);
+            }
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
@@ -38,7 +59,16 @@ const Header = () => {
                         aria-haspopup="true"
                         onClick={handleMenu}
                     >
-                        <AccountCircleIcon />
+                        {user && (
+                            <>
+                                <Typography sx={{ paddingRight: "5px" }}>
+                                    {`Hi ${user.name.split(" ")[0]} `}
+                                </Typography>
+                                <Avatar
+                                    src={require(`../assets/${user.avatar}`)}
+                                ></Avatar>
+                            </>
+                        )}
                     </IconButton>
                     <Menu
                         id="menu-appbar"

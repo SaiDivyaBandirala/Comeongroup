@@ -8,11 +8,13 @@ import {
     TextField,
 } from "@mui/material";
 import * as Yup from "yup";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../utils/Routes";
+import { useAuth } from "../context/AuthContext";
 
-const LoginForm = ({ setLoggedIn }) => {
+const LoginForm = () => {
+    const { login, setUserData } = useAuth();
+
     const LoginFormModel = {
         formField: {
             userName: { name: "userName", label: "User Name" },
@@ -41,7 +43,7 @@ const LoginForm = ({ setLoggedIn }) => {
     const navigate = useNavigate();
     const onLogin = async () => {
         setLoggedIn(true);
-        navigate(RoutePaths.HOME);
+        navigate(RoutePaths.GAMES);
     };
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -74,15 +76,23 @@ const LoginForm = ({ setLoggedIn }) => {
             } else {
                 const data = await response.json();
                 setFormValues(LoginFormValues);
-                onLogin(true);
+                login();
+                setUserData(data.player);
             }
         } catch (validationErrors) {
             const newErrors = {};
 
-            validationErrors.inner.forEach((error) => {
-                newErrors[error.path] = error.message;
-            });
-            setErrors(newErrors);
+            if (validationErrors?.inner) {
+                validationErrors.inner.forEach((error) => {
+                    newErrors[error.path] = error.message;
+                });
+                setErrors(newErrors);
+            } else {
+                setErrorMessage("Something went wrong, Please try later.");
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 5000);
+            }
         }
     };
 
@@ -140,7 +150,5 @@ const LoginForm = ({ setLoggedIn }) => {
         </Container>
     );
 };
-LoginForm.propTypes = {
-    setLoggedIn: PropTypes.func.isRequired,
-};
+
 export default LoginForm;

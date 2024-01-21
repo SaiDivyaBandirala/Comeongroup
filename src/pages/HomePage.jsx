@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import Header from "../components/Header";
 import { fetchCategories, fetchGames } from "../api/Api";
 import {
     Alert,
@@ -13,14 +11,16 @@ import GamesList from "../components/GamesList";
 import SortCategories from "../components/SortCategories";
 import { SearchGame } from "../components/SearchGame";
 import { useGameContext } from "../context/GameContext";
-const HomePage = ({ setLoggedIn }) => {
+const HomePage = () => {
     const { setGamesData } = useGameContext();
     const [categories, setCategories] = useState([]);
     const [errorMessage, setErrorMessage] = useState(false);
-    //Sort related useState
+
     const [selectedCategory, setSelectedCategory] = useState(0);
     const [query, setQuery] = useState("");
+
     const isXsScreen = useMediaQuery("(max-width:600px)");
+
     const handleSearch = (e) => {
         setQuery(e.target.value);
     };
@@ -114,7 +114,5 @@ const HomePage = ({ setLoggedIn }) => {
         </>
     );
 };
-HomePage.propTypes = {
-    setLoggedIn: PropTypes.func.isRequired,
-};
+
 export default HomePage;

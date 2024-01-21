@@ -5,6 +5,7 @@ import { AppRouter } from "./utils/Routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { GameProvider } from "./context/GameContext";
 import Header from "./components/Header";
+import { AuthProvider } from "./context/AuthContext";
 
 const theme = createTheme({
     palette: {
@@ -21,10 +22,12 @@ function App() {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <GameProvider>
-                    <Header />
-                    <AppRouter></AppRouter>
-                </GameProvider>
+                <AuthProvider>
+                    <GameProvider>
+                        <Header />
+                        <AppRouter></AppRouter>
+                    </GameProvider>
+                </AuthProvider>
             </ThemeProvider>
         </Router>
     );
