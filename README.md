@@ -34,3 +34,32 @@ This repository contains a minimal casino website with react using MUI.
 5. **Extra Features:**
     - Implement Game Page on selection of the game
     - Add extra data to the json
+
+## Future Work
+1. **Registration functionality:**
+
+    - Connect the Register component on the `/register` path
+    - Route to the login page on successfull registration.
+    - Provide message on invalid registration form.
+
+2. **Guest User functionality:**
+
+    - Create an attractive guest screen and showcase portfolio of games(without login).
+
+3. **Games list screen:**
+
+    - Add pagnation.
+    - Implement Sort functionality by name, year, age limit.
+
+4. **Game play screen:**
+
+    - Add games high score and scores rank board
+    - Option to download game sheet.
+    - Add gameplay slideshow.
+
+5. **Extra Features:**
+    - Implement user messages to encorage. Eg. Well done! Congratulations, on your win.
+    - Option to favorite a game.
+    - User Dashboard, stats.
+    - Sharable options on social media.
+    - New challenge on the most played game.
