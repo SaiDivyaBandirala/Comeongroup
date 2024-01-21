@@ -11,7 +11,7 @@ const RoutePaths = {
 };
 
 const AppRouter = () => {
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(true); //TODO change it after app is completed
 
     return (
         <Routes>
