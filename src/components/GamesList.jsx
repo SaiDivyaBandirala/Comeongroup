@@ -26,7 +26,7 @@ const GamesList = ({ games, query, selectedCategory }) => {
             container
             spacing={3}
             justifyContent="center"
-            sx={{ marginTop: "10rem" }}
+            sx={{ marginTop: "2rem" }}
         >
             {filteredGames.map((game) => (
                 <Grid item key={game.code} xs={12} sm={6} md={4} lg={4}>
