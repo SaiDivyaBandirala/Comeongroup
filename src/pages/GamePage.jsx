@@ -55,6 +55,7 @@ const GamePage = () => {
                     alignItems="center"
                 >
                     <img
+                        loading="lazy"
                         src={require(`../assets/${selectedGame.icon.replace(
                             "images/game-icon",
                             "images/game-header"

@@ -7,19 +7,24 @@ import {
     Menu,
     MenuItem,
     Avatar,
+    useMediaQuery,
 } from "@mui/material";
 import logo from "../assets/images/Logo.png";
 import { useAuth } from "../context/AuthContext";
+import { Logout } from "@mui/icons-material";
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const { user, logout, setUserData } = useAuth();
+    const isXsScreen = useMediaQuery("(max-width:600px)");
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
-    const handleClose = async () => {
+    const handleClose = () => {
         setAnchorEl(null);
+    };
+    const handleLogOut = async () => {
+        handleClose();
         try {
             const response = await fetch("http://localhost:3001/logout", {
                 method: "post",
@@ -47,7 +52,7 @@ const Header = () => {
         <AppBar position="static">
             <Toolbar>
                 <div style={{ flexGrow: 1 }}>
-                    <img src={logo} />
+                    <img src={logo} loading="lazy" />
                 </div>
                 <div>
                     <IconButton
@@ -61,10 +66,17 @@ const Header = () => {
                     >
                         {user && (
                             <>
-                                <Typography sx={{ paddingRight: "5px" }}>
+                                <Typography
+                                    sx={{
+                                        display: isXsScreen ? "none" : "block",
+                                        paddingRight: "5px",
+                                    }}
+                                >
                                     {`Hi ${user.name.split(" ")[0]} `}
                                 </Typography>
+
                                 <Avatar
+                                    loading="lazy"
                                     src={require(`../assets/${user.avatar}`)}
                                 ></Avatar>
                             </>
@@ -82,10 +94,13 @@ const Header = () => {
                             vertical: "top",
                             horizontal: "right",
                         }}
+                        sx={{ marginTop: "2rem", marginLeft: "-2rem" }}
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogOut}>
+                            <Logout /> Logout
+                        </MenuItem>
                     </Menu>
                 </div>
             </Toolbar>
