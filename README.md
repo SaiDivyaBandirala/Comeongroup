@@ -31,9 +31,8 @@ This repository contains a minimal casino website with react using MUI.
     - Loading the selected game via API.
     - Provide a way to go back to the Games list.
 
-5. **Extra Features:**
-    - Implement Game Page on selection of the game
-    - Add extra data to the json
+5. **Extra Features Implemented:**
+   
     - Validation of login form
     - Enhanced UI
     - Game Headers
