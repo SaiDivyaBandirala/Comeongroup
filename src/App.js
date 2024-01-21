@@ -1,8 +1,13 @@
 import React from "react";
 import "./App.css";
-import LoginForm from "./pages/LoginForm";
-import Header from "./components/Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AppRouter } from "./utils/Routes";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useRoutes,
+} from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -17,10 +22,11 @@ const theme = createTheme({
 
 function App() {
     return (
-        <ThemeProvider theme={theme}>
-            <Header />
-            <LoginForm />
-        </ThemeProvider>
+        <Router>
+            <ThemeProvider theme={theme}>
+                <AppRouter></AppRouter>
+            </ThemeProvider>
+        </Router>
     );
 }
 

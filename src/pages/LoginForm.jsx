@@ -8,8 +8,11 @@ import {
     TextField,
 } from "@mui/material";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "../utils/Routes";
 
-const LoginForm = () => {
+const LoginForm = ({ setLoggedIn }) => {
     const LoginFormModel = {
         formField: {
             userName: { name: "userName", label: "User Name" },
@@ -35,6 +38,11 @@ const LoginForm = () => {
     const [formValues, setFormValues] = useState(LoginFormValues);
     const [errors, setErrors] = useState({});
     const [errorMessage, setErrorMessage] = useState(null);
+    const navigate = useNavigate();
+    const onLogin = async () => {
+        setLoggedIn(true);
+        navigate(RoutePaths.HOME);
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
         setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
@@ -66,6 +74,7 @@ const LoginForm = () => {
             } else {
                 const data = await response.json();
                 setFormValues(LoginFormValues);
+                onLogin(true);
             }
         } catch (validationErrors) {
             const newErrors = {};
@@ -131,5 +140,7 @@ const LoginForm = () => {
         </Container>
     );
 };
-
+LoginForm.propTypes = {
+    setLoggedIn: PropTypes.func.isRequired,
+};
 export default LoginForm;
