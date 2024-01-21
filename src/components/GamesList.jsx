@@ -3,7 +3,24 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import "./GameList.css";
 
-const GamesList = ({ games, selectedCategory }) => {
+const GamesList = ({ games, query, selectedCategory }) => {
+    const filterResultsByQuery = (games, query, selectedCategory) => {
+        return games.filter((game) => {
+            const includesQuery =
+                query.trim().toLowerCase() === "" ||
+                game.code.toLowerCase().includes(query?.toLowerCase());
+            const matchesCategory =
+                selectedCategory === 0 ||
+                game.categoryIds.includes(selectedCategory);
+            return includesQuery && matchesCategory;
+        });
+    };
+    const filteredGames = filterResultsByQuery(
+        games,
+        query || "",
+        selectedCategory
+    );
+
     return (
         <Grid
             container
@@ -11,7 +28,7 @@ const GamesList = ({ games, selectedCategory }) => {
             justifyContent="center"
             sx={{ marginTop: "10rem" }}
         >
-            {games.map((game) => (
+            {filteredGames.map((game) => (
                 <Grid item key={game.code} xs={12} sm={6} md={4} lg={4}>
                     <Card
                         className="game-card"
@@ -47,7 +64,8 @@ const GamesList = ({ games, selectedCategory }) => {
 
 GamesList.propTypes = {
     games: PropTypes.array.isRequired,
-    selectedCategory: PropTypes.string.isRequired,
+    selectedCategory: PropTypes.number.isRequired,
+    query: PropTypes.string.isRequired,
 };
 
 export default GamesList;

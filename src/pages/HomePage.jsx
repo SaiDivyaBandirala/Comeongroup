@@ -5,12 +5,17 @@ import { fetchCategories, fetchGames } from "../api/Api";
 import { Alert, Container, Grid } from "@mui/material";
 import GamesList from "../components/GamesList";
 import SortCategories from "../components/SortCategories";
+import { SearchGame } from "../components/SearchGame";
 const HomePage = ({ setLoggedIn }) => {
     const [games, setGames] = useState([]);
     const [categories, setCategories] = useState([]);
     const [errorMessage, setErrorMessage] = useState(false);
     //Sort related useState
     const [selectedCategory, setSelectedCategory] = useState(0);
+    const [query, setQuery] = useState("");
+    const handleSearch = (e) => {
+        setQuery(e.target.value);
+    };
     const handleCategoryChange = (newCategory) => {
         setSelectedCategory(newCategory);
     };
@@ -30,7 +35,6 @@ const HomePage = ({ setLoggedIn }) => {
     };
     useEffect(() => {
         fetchData();
-        console.log(games, categories);
     }, []);
 
     const handleLogout = () => {
@@ -42,8 +46,11 @@ const HomePage = ({ setLoggedIn }) => {
             <Header></Header>
             <Container>
                 <Grid container spacing={3} sx={{ marginTop: "5rem" }}>
+                    <Grid item xs={12} lg={8}>
+                        <SearchGame query={query} queryChange={handleSearch} />
+                    </Grid>
                     {categories.length > 0 && (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} lg={4}>
                             <SortCategories
                                 categories={categories}
                                 selectedCategory={selectedCategory}
@@ -55,6 +62,7 @@ const HomePage = ({ setLoggedIn }) => {
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
                 <GamesList
                     games={games}
+                    query={query}
                     selectedCategory={selectedCategory}
                 ></GamesList>
             </Container>
