@@ -3,8 +3,10 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import "./GameList.css";
 import { Link } from "react-router-dom";
+import { useGameContext } from "../context/GameContext";
 
-const GamesList = ({ games, query, selectedCategory }) => {
+const GamesList = ({ query, selectedCategory }) => {
+    const { games, setSelectedGameData } = useGameContext();
     const filterResultsByQuery = (games, query, selectedCategory) => {
         return games.filter((game) => {
             const includesQuery =
@@ -21,6 +23,9 @@ const GamesList = ({ games, query, selectedCategory }) => {
         query || "",
         selectedCategory
     );
+    const handleSelectedGame = (game) => {
+        setSelectedGameData(game);
+    };
 
     return (
         <Grid
@@ -34,6 +39,7 @@ const GamesList = ({ games, query, selectedCategory }) => {
                     <Link
                         to={`/games/${game.code}`}
                         style={{ textDecoration: "none" }}
+                        onClick={() => handleSelectedGame(game)}
                     >
                         <Card
                             className="game-card"
@@ -69,7 +75,6 @@ const GamesList = ({ games, query, selectedCategory }) => {
 };
 
 GamesList.propTypes = {
-    games: PropTypes.array.isRequired,
     selectedCategory: PropTypes.number.isRequired,
     query: PropTypes.string.isRequired,
 };

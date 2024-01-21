@@ -2,12 +2,8 @@ import React from "react";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AppRouter } from "./utils/Routes";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    useRoutes,
-} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { GameProvider } from "./context/GameContext";
 
 const theme = createTheme({
     palette: {
@@ -24,7 +20,9 @@ function App() {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <AppRouter></AppRouter>
+                <GameProvider>
+                    <AppRouter></AppRouter>
+                </GameProvider>
             </ThemeProvider>
         </Router>
     );

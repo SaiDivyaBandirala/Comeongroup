@@ -12,8 +12,9 @@ import {
 import GamesList from "../components/GamesList";
 import SortCategories from "../components/SortCategories";
 import { SearchGame } from "../components/SearchGame";
+import { useGameContext } from "../context/GameContext";
 const HomePage = ({ setLoggedIn }) => {
-    const [games, setGames] = useState([]);
+    const { setGamesData } = useGameContext();
     const [categories, setCategories] = useState([]);
     const [errorMessage, setErrorMessage] = useState(false);
     //Sort related useState
@@ -30,7 +31,7 @@ const HomePage = ({ setLoggedIn }) => {
     const fetchData = async () => {
         try {
             fetchGames()
-                .then((data) => setGames(data))
+                .then((data) => setGamesData(data))
                 .catch((error) => setErrorMessage(error));
 
             fetchCategories()
@@ -107,7 +108,6 @@ const HomePage = ({ setLoggedIn }) => {
                 </Grid>
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
                 <GamesList
-                    games={games}
                     query={query}
                     selectedCategory={selectedCategory}
                 ></GamesList>
