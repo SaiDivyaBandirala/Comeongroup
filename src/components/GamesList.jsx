@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import "./GameList.css";
+import { Link } from "react-router-dom";
 
 const GamesList = ({ games, query, selectedCategory }) => {
     const filterResultsByQuery = (games, query, selectedCategory) => {
@@ -30,32 +31,37 @@ const GamesList = ({ games, query, selectedCategory }) => {
         >
             {filteredGames.map((game) => (
                 <Grid item key={game.code} xs={12} sm={6} md={4} lg={4}>
-                    <Card
-                        className="game-card"
-                        sx={{ height: "300px", maxHeight: "300px" }}
+                    <Link
+                        to={`/games/${game.code}`}
+                        style={{ textDecoration: "none" }}
                     >
-                        <CardMedia
-                            component="img"
-                            image={require(`../assets/${game.icon}`)}
-                            alt={game.name}
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "contain",
-                            }}
-                        />
-                        <div className="overlay">
-                            <CardContent>
-                                <Typography
-                                    variant="h4"
-                                    textAlign="center"
-                                    component="div"
-                                >
-                                    {game.name}
-                                </Typography>
-                            </CardContent>
-                        </div>
-                    </Card>
+                        <Card
+                            className="game-card"
+                            sx={{ height: "300px", maxHeight: "300px" }}
+                        >
+                            <CardMedia
+                                component="img"
+                                image={require(`../assets/${game.icon}`)}
+                                alt={game.name}
+                                sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "contain",
+                                }}
+                            />
+                            <div className="overlay">
+                                <CardContent>
+                                    <Typography
+                                        variant="h4"
+                                        textAlign="center"
+                                        component="div"
+                                    >
+                                        {game.name}
+                                    </Typography>
+                                </CardContent>
+                            </div>
+                        </Card>
+                    </Link>
                 </Grid>
             ))}
         </Grid>

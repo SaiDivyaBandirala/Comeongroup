@@ -3,10 +3,12 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import LoginForm from "../pages/LoginForm";
 import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
+import GamePage from "../pages/GamePage";
 
 const RoutePaths = {
     LOGIN: "/login",
-    HOME: "/home",
+    HOME: "/games",
+    GAME: "/games/:gameCode",
     NOT_FOUND: "/*",
 };
 
@@ -35,6 +37,7 @@ const AppRouter = () => {
                     )
                 }
             />
+            <Route path={RoutePaths.GAME} element={<GamePage />} />
             <Route path={RoutePaths.NOT_FOUND} element={<NotFoundPage />} />
         </Routes>
     );
