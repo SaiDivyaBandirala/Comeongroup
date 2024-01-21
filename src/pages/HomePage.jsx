@@ -51,7 +51,6 @@ const HomePage = ({ setLoggedIn }) => {
     };
     return (
         <>
-            <Header></Header>
             <Container>
                 <Grid container spacing={3} sx={{ marginTop: "5rem" }}>
                     <Grid item xs={12} lg={8}>

@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AppRouter } from "./utils/Routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { GameProvider } from "./context/GameContext";
+import Header from "./components/Header";
 
 const theme = createTheme({
     palette: {
@@ -21,6 +22,7 @@ function App() {
         <Router>
             <ThemeProvider theme={theme}>
                 <GameProvider>
+                    <Header />
                     <AppRouter></AppRouter>
                 </GameProvider>
             </ThemeProvider>
