@@ -3,11 +3,7 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import "./GameList.css";
 
-const GamesList = ({ games }) => {
-    useEffect(() => {
-        console.log(games);
-    });
-
+const GamesList = ({ games, selectedCategory }) => {
     return (
         <Grid
             container
@@ -51,6 +47,7 @@ const GamesList = ({ games }) => {
 
 GamesList.propTypes = {
     games: PropTypes.array.isRequired,
+    selectedCategory: PropTypes.string.isRequired,
 };
 
 export default GamesList;
